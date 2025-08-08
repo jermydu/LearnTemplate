@@ -25,5 +25,8 @@ int main()
 	auto a = ::myMax2(4, 7.2); //使用第一个函数模板
 	auto b = ::myMax2<long double>(7.2, 4); //使用第二个函数模板
 	//auto c = ::myMax2<int>(4, 7.2); // ERROR:两个函数模板都可以匹配
+
+	func(10, 20,20); //调用泛化版本
+	func(10.5, 20.5,100); //调用全特化版本
 	return 0;
 }

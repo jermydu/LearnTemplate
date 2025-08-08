@@ -43,6 +43,12 @@ auto max5(T1 a, T2 b) -> decltype(a > b ? a : b)
 //通用性: 这种写法适用于各种类型组合的参数，无论它们是基本类型、自定义类型、数组类型还是函数类型等。
 //类型简化: 通过 std::decay，可以确保返回值类型是一个简单的、非修饰的类型，这在某些情况下（如作为模板参数或存储到容器中）非常有用。
 //兼容性 : 即使参数类型比较复杂（如带修饰符的引用类型），经过 std::decay 处理后，返回值类型变得更通用和兼容。
+//std::decay —— “退化”类型
+//std::decay<T>
+//去掉引用（& / && ）
+//去掉 cv - 限定符（const / volatile）
+//数组 → 指针（T[N] → T * ）
+//函数 → 函数指针（T(U…) → T(*)(U…)）
 template <typename T1, typename T2>
 auto max6(T1 a, T2 b) -> typename std::decay<decltype(a > b ? a : b)>::type   //std::decay_t<decltype(a > b ? a : b)
 {
@@ -100,4 +106,19 @@ template <typename RT,typename T1, typename T2>
 RT myMax2(T1 a, T2 b)
 {
 	return a > b ? a : b;
+}
+
+/************************************函数模版特化偏特化************************************/
+//泛化版本
+template <typename T, typename U,typename V>
+void func(T a, U b,V c)
+{
+	std::cout << "泛化版本" << std::endl;
+}
+
+//全特化版本
+template <>
+void func(double a, double b,int c)
+{
+	std::cout << "全特化版本double,double,int" << std::endl;
 }
